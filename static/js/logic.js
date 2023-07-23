@@ -47,7 +47,9 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
         
         let marker = L.circle(coordinates_list[i].reverse(),{
             radius: depth_list[i]*1100,
-            color: fillColor
+            color: fillColor,
+            
+            fillOpacity: 1
             
             
             
@@ -58,7 +60,11 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
         Location: ${features[i].properties.place} <br>
         Depth: ${depth_list[i]}`
         marker.bindPopup(marker_message);
+        
+        
     };
+    
+
     console.log(coordinates_list)
     console.log(depth_list)
    
