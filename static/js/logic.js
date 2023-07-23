@@ -25,41 +25,42 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     depth_list = [];
     for (let i = 0; i < features.length; i++){
         let feature = features[i].geometry.coordinates;
-        let properties = features[i].properties.detail;
         coordinates_list.push(feature.slice(0,2));
         depth_list.push(parseInt(feature.slice(2,3)).toFixed(0));
         let fillColor;
 
         if(depth_list[i]>= -10 && depth_list[i] < 10){
-            fillColor = "green";
+            fillColor = "#54F253";
         } else if (depth_list[i]>= 10 && depth_list[i] < 30){
-            fillColor = "red";
+            fillColor = "#CAD246";
         } else if (depth_list[i]>= 30 && depth_list[i] < 50){
-            fillColor = "blue";
+            fillColor = "#F3B46A";
         } else if (depth_list[i]>= 50 && depth_list[i] < 70){
-            fillColor = "orange";
+            fillColor = "#ffb653";
         } else if (depth_list[i]>= 70 && depth_list[i] < 90){
-            fillColor = "yellow";
+            fillColor = "#ff7538";
         } else if (depth_list[i] > 90){
-            fillColor = "white";
+            fillColor = "#ee204d";
         }
 
 
         
         let marker = L.circle(coordinates_list[i].reverse(),{
             radius: depth_list[i]*1100,
-            color: fillColor,
-            fillColor: fillColor
+            color: fillColor
+            
             
             
 
         }).addTo(myMap);
         // Binding a popup to our marker to check coordinates
-
-    marker.bindPopup("Hello");
+        let marker_message = `Magnitude: ${features[i].properties.mag} <br> 
+        Location: ${features[i].properties.place} <br>
+        Depth: ${depth_list[i]}`
+        marker.bindPopup(marker_message);
     };
     console.log(coordinates_list)
     console.log(depth_list)
-    //console.log(properties)
+   
     
 })
